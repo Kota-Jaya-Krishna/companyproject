@@ -16,14 +16,15 @@ check_status() {
            kill "$(cat $PID_FILE)"
            rm -f "$PID_FILE"
            echo "Service '$SERVICE_NAME' stopped successfully."
-           sleep 20
+           sleep 5
            echo "Starting '$SERVICE_NAME'..." 
            systemctl start nginx > "$LOG_FILE" 2>&1 &
-                if [ -f "$PID_FILE" ]
-                    then
-                    echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
-                    exit 0
-                fi
+           echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+                #if [ -f "$PID_FILE" ]
+                 #   then
+                  #  echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+                   # exit 0
+                #fi
     else
         echo "Starting '$SERVICE_NAME'..." 
         nohup systemctl start nginx > "$LOG_FILE" 2>&1 &
