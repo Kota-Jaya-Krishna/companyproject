@@ -20,7 +20,7 @@ check_status() {
            echo "Starting '$SERVICE_NAME'..." 
            systemctl start nginx > "$LOG_FILE" 2>&1 &
            sleep 5
-           echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+           echo "Service '$SERVICE_NAME' started with PID '$(cat $PID_FILE)'."
                 #if [ -f "$PID_FILE" ]
                  #   then
                   #  echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
