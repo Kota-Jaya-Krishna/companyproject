@@ -26,7 +26,7 @@ check_status() {
                 fi
     else
         echo "Starting '$SERVICE_NAME'..." 
-        nohup $(systemctl start nginx) > "$LOG_FILE" 2>&1 &
+        nohup systemctl start nginx > "$LOG_FILE" 2>&1 &
             if [ -f "$PID_FILE" ]
                 then
                 echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
