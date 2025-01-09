@@ -33,7 +33,7 @@ check_status() {
                 exit 0
             fi
     fi
-
+}
 check_status
             
 
