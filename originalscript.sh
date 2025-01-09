@@ -2,8 +2,11 @@
 
 # Define variables
 SERVICE_NAME="nginx"
+echo "Success-1"
 PID_FILE="/var/run/$SERVICE_NAME.pid"
+echo "Success-2"
 LOG_FILE="/var/log/$SERVICE_NAME.log"
+echo "Success-3"
 
 check_status() {
     if [ -f "$PID_FILE" ]
