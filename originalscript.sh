@@ -1,12 +1,10 @@
 #!/bin/bash
 
 # Define variables
+
 SERVICE_NAME="nginx"
-echo "Success-1"
 PID_FILE="/var/run/$SERVICE_NAME.pid"
-echo "Success-2"
 LOG_FILE="/var/log/$SERVICE_NAME.log"
-echo "Success-3"
 
 check_status() {
     if [ -f "$PID_FILE" ]
@@ -23,8 +21,11 @@ check_status() {
            #echo "Service '$SERVICE_NAME' started with PID '$(cat $PID_FILE)'."
                 if [ -f "$PID_FILE" ]
                     then
-                    echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
-                    exit 0
+                        echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+                        exit 0
+                    else
+                        echo "Service '$SERVICE_NAME' is not started Successfully."
+                        exit 1
                 fi
     else
         echo "Starting '$SERVICE_NAME'..." 
@@ -34,6 +35,9 @@ check_status() {
                     then
                     echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
                     exit 0
+                else
+                    echo "Service '$SERVICE_NAME' is not started Successfully."
+                    exit 1
                 fi
     fi
 }
