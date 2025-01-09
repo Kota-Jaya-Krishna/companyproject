@@ -34,7 +34,8 @@ check_status() {
             fi
     fi
 
-                
+check_status
+            
 
 
     
