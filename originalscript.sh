@@ -18,7 +18,7 @@ check_status() {
            echo "Service '$SERVICE_NAME' stopped successfully."
            sleep 20
            echo "Starting '$SERVICE_NAME'..." 
-           nohup $(systemctl start nginx) > "$LOG_FILE" 2>&1 &
+           systemctl start nginx > "$LOG_FILE" 2>&1 &
                 if [ -f "$PID_FILE" ]
                     then
                     echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
@@ -27,12 +27,11 @@ check_status() {
     else
         echo "Starting '$SERVICE_NAME'..." 
         nohup systemctl start nginx > "$LOG_FILE" 2>&1 &
-        echo "before condition"
-            if [ -f "$PID_FILE" ]
-                then
-                echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
-                exit 0
-            fi
+                if [ -f "$PID_FILE" ]
+                    then
+                    echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+                    exit 0
+                fi
     fi
 }
 check_status
