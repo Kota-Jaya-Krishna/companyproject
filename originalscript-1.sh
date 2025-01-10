@@ -1,7 +1,6 @@
 #!/bin/bash
 
 SERVICE_NAME="nginx"
-SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
 
 check_status() {
     if [ ! -z "$SERVICE_PID" ]
