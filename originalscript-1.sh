@@ -3,12 +3,13 @@
 SERVICE_NAME="nginx"
 
 check_status() {
-    if [ ! -z "$SERVICE_PID" ]
+    SERVICE_PID1="$(pgrep -f "$SERVICE_NAME")"
+    if [ ! -z "$SERVICE_PID1" ]
        then
-           echo "Service '$SERVICE_NAME' is already running with PID '$SERVICE_PID'."
+           echo "Service '$SERVICE_NAME' is already running with PID '$SERVICE_PID1'."
            echo "Stopping '$SERVICE_NAME'..."
            # Stop all PIDs associated with the service
-           for PID in $SERVICE_PID;do
+           for PID in $SERVICE_PID1;do
            kill -9 "$PID"
            done
                 if [ "$?" -eq 0 ]
@@ -19,12 +20,13 @@ check_status() {
            echo "Starting '$SERVICE_NAME'..." 
            systemctl start "$SERVICE_NAME"
            sleep 10
-                if [ ! -z "$SERVICE_PID" ]
+           SERVICE_PID1="$(pgrep -f "$SERVICE_NAME")"
+                if [ -z "$SERVICE_PID1" ]
                     then
-                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
+                        echo "Service '$SERVICE_NAME' is not started Successfully."
                         exit 0
                     else
-                        echo "Service '$SERVICE_NAME' is not started Successfully."
+                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                         exit 1
                 fi
     else
@@ -35,9 +37,9 @@ check_status() {
                     then
                         echo "Service '$SERVICE_NAME' is not started Successfully."
                         exit 1
-                else
-                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
-                    exit 0
+                    else
+                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
+                        exit 0
                 fi
     fi
 }
