@@ -1,9 +1,9 @@
 #!/bin/bash
 
 SERVICE_NAME="nginx"
+SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
 
 check_status() {
-    SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
     if [ ! -z "$SERVICE_PID" ]
        then
            echo "Service '$SERVICE_NAME' is already running with PID '$SERVICE_PID'."
