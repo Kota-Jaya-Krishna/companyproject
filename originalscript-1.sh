@@ -32,13 +32,13 @@ check_status() {
         echo "Starting '$SERVICE_NAME'..." 
         systemctl start "$SERVICE_NAME"
         sleep 10
-                if [ ! -z "$SERVICE_PID" ]
+                if [ -z "$SERVICE_PID" ]
                     then
-                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
-                    exit 0
-                else
                     echo "Service '$SERVICE_NAME' is not started Successfully."
                     exit 1
+                else
+                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
+                    exit 0
                 fi
     fi
 }
