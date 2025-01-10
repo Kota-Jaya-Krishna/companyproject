@@ -16,10 +16,10 @@ check_status() {
                     then
                         echo "Service '$SERVICE_NAME' stopped Successfully."
                 fi
-           sleep 5
+           sleep 10
            echo "Starting '$SERVICE_NAME'..." 
            systemctl start "$SERVICE_NAME"
-           sleep 5
+           sleep 10
                 if [ ! -z "$SERVICE_PID" ]
                     then
                         echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
@@ -34,8 +34,8 @@ check_status() {
         sleep 10
                 if [ -z "$SERVICE_PID" ]
                     then
-                    echo "Service '$SERVICE_NAME' is not started Successfully."
-                    exit 1
+                        echo "Service '$SERVICE_NAME' is not started Successfully."
+                        exit 1
                 else
                     echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                     exit 0
