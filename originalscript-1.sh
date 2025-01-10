@@ -8,7 +8,10 @@ check_status() {
        then
            echo "Service '$SERVICE_NAME' is already running with PID '$SERVICE_PID'."
            echo "Stopping '$SERVICE_NAME'..."
-           kill -9 "$SERVICE_PID"
+           # Stop all PIDs associated with the service
+           for PID in $SERVICE_PID;do
+           kill -9 "$PID"
+           done
                 if [ "$?" -eq 0 ]
                     then
                         echo "Service '$SERVICE_NAME' stopped Successfully."
@@ -17,7 +20,6 @@ check_status() {
            echo "Starting '$SERVICE_NAME'..." 
            systemctl start "$SERVICE_NAME"
            sleep 5
-           #echo "Service '$SERVICE_NAME' started with PID '$(cat $PID_FILE)'."
                 if [ ! -z "$SERVICE_PID" ]
                     then
                         echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
