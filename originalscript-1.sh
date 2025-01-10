@@ -25,8 +25,8 @@ check_status() {
                     then
                         echo "Service '$SERVICE_NAME' is not started Successfully."
                         exit 1
-                    else
-                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
+                else
+                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                 fi
     else
         echo "Starting '$SERVICE_NAME'..." 
@@ -37,8 +37,8 @@ check_status() {
                     then
                         echo "Service '$SERVICE_NAME' is not started Successfully."
                         exit 1
-                    else
-                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
+                else
+                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                 fi
     fi
 }
