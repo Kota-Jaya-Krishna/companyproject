@@ -14,29 +14,29 @@ check_status() {
                     then
                         echo "Service '$SERVICE_NAME' stopped Successfully."
                 fi
-           sleep 5
+           sleep 10
            echo "Starting '$SERVICE_NAME'..." 
            $SERVICE_PATH/service $SERVICE_NAME start
-           sleep 5
-                if [ ! -z "$SERVICE_PID" ]
+           sleep 10
+           SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
+                if [ -z "$SERVICE_PID" ]
                     then
-                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
-                        exit 0
-                    else
                         echo "Service '$SERVICE_NAME' is not started Successfully."
                         exit 1
+                else
+                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                 fi
     else
         echo "Starting '$SERVICE_NAME'..." 
         $SERVICE_PATH/service $SERVICE_NAME start
-        sleep 5
-                if [ ! -z "$SERVICE_PID" ]
+        sleep 10
+        SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
+                if [ -z "$SERVICE_PID" ]
                     then
-                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
-                    exit 0
+                        echo "Service '$SERVICE_NAME' is not started Successfully."
+                        exit 1
                 else
-                    echo "Service '$SERVICE_NAME' is not started Successfully."
-                    exit 1
+                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."   
                 fi
     fi
 }
