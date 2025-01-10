@@ -27,7 +27,6 @@ check_status() {
                         exit 1
                     else
                         echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
-                        exit 0
                 fi
     else
         echo "Starting '$SERVICE_NAME'..." 
@@ -40,7 +39,6 @@ check_status() {
                         exit 1
                     else
                         echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
-                        exit 0
                 fi
     fi
 }
