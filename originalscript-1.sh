@@ -1,27 +1,26 @@
 #!/bin/bash
 
-# Define variables
-
 SERVICE_NAME="nginx"
-PID_FILE="/var/run/$SERVICE_NAME.pid"
-LOG_FILE="/var/log/$SERVICE_NAME.log"
 
 check_status() {
-    if [ -f "$PID_FILE" ]
+    SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
+    if [ ! -z "$SERVICE_PID" ]
        then
-           echo "Service '$SERVICE_NAME' is already running with PID $(cat $PID_FILE)."
+           echo "Service '$SERVICE_NAME' is already running with PID '$SERVICE_PID'."
            echo "Stopping '$SERVICE_NAME'..."
-           kill "$(cat $PID_.FILE)"
-           rm -f "$PID_FILE"
-           echo "Service '$SERVICE_NAME' stopped successfully."
+           kill -9 "$SERVICE_PID"
+                if [ "$?" -eq 0 ]
+                    then
+                        echo "Service '$SERVICE_NAME' stopped Successfully."
+                fi
            sleep 5
            echo "Starting '$SERVICE_NAME'..." 
-           systemctl start "$SERVICE_NAME" > "$LOG_FILE" 2>&1 &
+           systemctl start "$SERVICE_NAME"
            sleep 5
            #echo "Service '$SERVICE_NAME' started with PID '$(cat $PID_FILE)'."
-                if [ -f "$PID_FILE" ]
+                if [ ! -z "$SERVICE_PID" ]
                     then
-                        echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+                        echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                         exit 0
                     else
                         echo "Service '$SERVICE_NAME' is not started Successfully."
@@ -29,11 +28,11 @@ check_status() {
                 fi
     else
         echo "Starting '$SERVICE_NAME'..." 
-        systemctl start "$SERVICE_NAME" > "$LOG_FILE" 2>&1 &
+        systemctl start "$SERVICE_NAME"
         sleep 5
-                if [ -f "$PID_FILE" ]
+                if [ ! -z "$SERVICE_PID" ]
                     then
-                    echo "Service '$SERVICE_NAME' started with PID $(cat $PID_FILE)."
+                    echo "Service '$SERVICE_NAME' started with PID '$SERVICE_PID'."
                     exit 0
                 else
                     echo "Service '$SERVICE_NAME' is not started Successfully."
