@@ -4,7 +4,7 @@ SERVICE_NAME="cache-service-prod-sg"
 SERVICE_PATH="/export/gcs1/data/Spart/cache-service-prod-sg/distro-current/scripts/"
 
 check_status() {
-    SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
+    SERVICE_PID=$(pgrep -f "$SERVICE_NAME")
     if [ ! -z "$SERVICE_PID" ]
        then
            echo "Service '$SERVICE_NAME' is already running with PID '$SERVICE_PID'."
@@ -18,7 +18,7 @@ check_status() {
            echo "Starting '$SERVICE_NAME'..." 
            $SERVICE_PATH/service $SERVICE_NAME start
            sleep 10
-           SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
+           SERVICE_PID=$(pgrep -f "$SERVICE_NAME")
                 if [ -z "$SERVICE_PID" ]
                     then
                         echo "Service '$SERVICE_NAME' is not started Successfully."
@@ -30,7 +30,7 @@ check_status() {
         echo "Starting '$SERVICE_NAME'..." 
         $SERVICE_PATH/service $SERVICE_NAME start
         sleep 10
-        SERVICE_PID="$(pgrep -f "$SERVICE_NAME")"
+        SERVICE_PID=$(pgrep -f "$SERVICE_NAME")
                 if [ -z "$SERVICE_PID" ]
                     then
                         echo "Service '$SERVICE_NAME' is not started Successfully."
